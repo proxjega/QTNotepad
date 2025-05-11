@@ -27,10 +27,13 @@ private slots:
     void on_actionPage_Settings_triggered();
     void on_actionFont_triggered();
     void on_actionPrint_triggered();
+    void on_textEdit_textChanged();
+    void closeEvent(QCloseEvent *event) override;
 
 private:
     Ui::MainWindow *ui;
     QString _filename;
     bool _saved;
+    bool _existing;
 };
 #endif // MAINWINDOW_H

@@ -5,7 +5,8 @@
 #include <QFont>
 #include <QMessageBox>
 #include "includeFunctions.h"
-int main(int argc, char *argv[]);
+#include <QCloseEvent>
+#include <QObject>
 //#include <string>
 
 MainWindow::MainWindow(QWidget *parent)
@@ -13,7 +14,8 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    _saved = false;
+    _saved = true;
+    _existing = false;
 }
 
 MainWindow::~MainWindow()
@@ -23,7 +25,7 @@ MainWindow::~MainWindow()
 
 
 void MainWindow::on_actionSave_triggered() {
-    if(!_saved) {
+    if(!_existing) {
         on_actionSave_as_triggered();
     }
     else {
@@ -36,6 +38,7 @@ void MainWindow::on_actionSave_triggered() {
     }
     //set title
     this->setWindowTitle(getTitle(_filename));
+    _saved = true;
 }
 
 void MainWindow:: on_actionSave_as_triggered() {
@@ -54,6 +57,7 @@ void MainWindow:: on_actionSave_as_triggered() {
     QMessageBox::information(this, tr("File Saved"), tr("File saved successfully!"));
     _filename = filename;
     _saved = true;
+    _existing = true;
     //set title
     this->setWindowTitle(getTitle(_filename));
 }
@@ -76,10 +80,26 @@ void MainWindow::on_actionNew_triggered() {
 }
 
 void MainWindow::on_actionOpen_triggered(){
-
+    auto file = [this](const QString filename, const QString &content) {
+        if(filename.isEmpty()) {
+            return;
+        }
+        else {
+            _filename = filename;
+            _existing = true;
+            _saved = true;
+            this->setWindowTitle(getTitle(_filename));
+            this->ui->textEdit->setPlainText(content);
+        }
+    };
+    QFileDialog::getOpenFileContent(tr("Text Files (*.txt);;All Files (*)"), file);
 }
 void MainWindow::on_actionCreate_triggered(){
-
+    this->ui->textEdit->setPlainText("");
+    this->setWindowTitle("Untitled - qNotepad");
+    _filename = "";
+    _saved = false;
+    _existing = false;
 }
 void MainWindow::on_actionPage_Settings_triggered(){
 
@@ -89,4 +109,34 @@ void MainWindow::on_actionPrint_triggered(){
 
 }
 
+void MainWindow::on_textEdit_textChanged() {
+    _saved = false;
+    this->setWindowTitle("*" + getTitle(_filename));
+}
 
+void MainWindow::closeEvent(QCloseEvent *event) {
+    if(!_saved) {
+        event->ignore();
+        QMessageBox *messageBox = new QMessageBox(this);
+        messageBox->setWindowTitle("Unsaved Changes");
+        messageBox->setText("Do you want to save your changes?");
+        messageBox->setStandardButtons(QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
+        messageBox->setDefaultButton(QMessageBox::Yes);
+        messageBox->setIcon(QMessageBox::Warning);
+        messageBox->setAttribute(Qt::WA_DeleteOnClose);
+        messageBox->show();
+        int res = messageBox->exec();
+        switch(res){
+        case QMessageBox::Yes:
+            on_actionSave_triggered();
+            event->accept();
+            break;
+        case QMessageBox::No:
+            event->accept();
+            break;
+        case QMessageBox::Cancel:
+            event->ignore();
+            break;
+        }
+    }
+}
