@@ -2,6 +2,7 @@
 #include "./ui_mainwindow.h"
 #include <QFileDialog>
 #include <QMessageBox>
+#include "includeFunctions.h"
 //#include <string>
 
 MainWindow::MainWindow(QWidget *parent)
@@ -18,22 +19,6 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_pushButton_clicked()
-{
-    auto filename = QFileDialog::getSaveFileName(this, tr("Save File"),
-                                                 "", tr("Text Files (*.txt);;All Files (*)"));
-    if (filename.isEmpty()) {
-        return;
-    }
-    QFile file(filename);
-    if (!file.open(QIODevice::WriteOnly)) {
-        return;
-    }
-    QTextStream out(&file);
-    out << this->ui->textEdit->toPlainText();
-    file.close();
-    QMessageBox::information(this, tr("File Saved"), tr("File saved successfully!"));
-}
 
 void MainWindow::on_actionSave_triggered() {
     if(!_saved) {
@@ -47,6 +32,8 @@ void MainWindow::on_actionSave_triggered() {
         file.close();
         QMessageBox::information(this, tr("File Saved"), tr("File saved successfully!"));
     }
+    //set title
+    this->setWindowTitle(getTitle(_filename) + " - qNotepad");
 }
 
 void MainWindow:: on_actionSave_as_triggered() {
@@ -65,6 +52,8 @@ void MainWindow:: on_actionSave_as_triggered() {
     QMessageBox::information(this, tr("File Saved"), tr("File saved successfully!"));
     _filename = filename;
     _saved = true;
+    //set title
+    this->setWindowTitle(getTitle(_filename) + " - qNotepad");
 }
 
 

@@ -18,7 +18,6 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_pushButton_clicked();
     void on_actionSave_as_triggered();
     void on_actionSave_triggered();
 

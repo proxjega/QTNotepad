@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Notepad</string>
+   <string>Unnamed - qNotepad</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QPushButton" name="pushButton">
@@ -30,10 +30,10 @@
    <widget class="QTextEdit" name="textEdit">
     <property name="geometry">
      <rect>
-      <x>13</x>
-      <y>9</y>
-      <width>781</width>
-      <height>351</height>
+      <x>0</x>
+      <y>0</y>
+      <width>791</width>
+      <height>361</height>
      </rect>
     </property>
     <property name="layoutDirection">
@@ -41,6 +41,9 @@
     </property>
     <property name="locale">
      <locale language="English" country="UnitedStates"/>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Shape::NoFrame</enum>
     </property>
     <property name="documentTitle">
      <string>filename</string>
