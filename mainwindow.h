@@ -19,9 +19,13 @@ public:
 
 private slots:
     void on_pushButton_clicked();
+    void on_actionSave_as_triggered();
     void on_actionSave_triggered();
 
 private:
     Ui::MainWindow *ui;
+    QFont _font;
+    QString _filename;
+    bool _saved;
 };
 #endif // MAINWINDOW_H

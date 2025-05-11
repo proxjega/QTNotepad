@@ -9,6 +9,8 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    _font = QFont("Arial", 12);
+    _saved = false;
 }
 
 MainWindow::~MainWindow()
@@ -33,7 +35,21 @@ void MainWindow::on_pushButton_clicked()
     QMessageBox::information(this, tr("File Saved"), tr("File saved successfully!"));
 }
 
-void MainWindow:: on_actionSave_triggered() {
+void MainWindow::on_actionSave_triggered() {
+    if(!_saved) {
+        on_actionSave_as_triggered();
+    }
+    else {
+        QFile file(_filename);
+        file.open(QIODevice::WriteOnly);
+        QTextStream out(&file);
+        out << this->ui->textEdit->toPlainText();
+        file.close();
+        QMessageBox::information(this, tr("File Saved"), tr("File saved successfully!"));
+    }
+}
+
+void MainWindow:: on_actionSave_as_triggered() {
     auto filename = QFileDialog::getSaveFileName(this, tr("Save File"),
     "", tr("Text Files (*.txt);;All Files (*)"));
     if (filename.isEmpty()) {
@@ -47,7 +63,8 @@ void MainWindow:: on_actionSave_triggered() {
     out << this->ui->textEdit->toPlainText();
     file.close();
     QMessageBox::information(this, tr("File Saved"), tr("File saved successfully!"));
-
+    _filename = filename;
+    _saved = true;
 }
 
 
