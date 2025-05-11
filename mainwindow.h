@@ -20,10 +20,10 @@ public:
 private slots:
     void on_actionSave_as_triggered();
     void on_actionSave_triggered();
+    void on_actionFont_triggered();
 
 private:
     Ui::MainWindow *ui;
-    QFont _font;
     QString _filename;
     bool _saved;
 };

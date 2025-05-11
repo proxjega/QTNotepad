@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
 #include <QFileDialog>
+#include <QFontDialog>
+#include <QFont>
 #include <QMessageBox>
 #include "includeFunctions.h"
 //#include <string>
@@ -10,7 +12,6 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    _font = QFont("Arial", 12);
     _saved = false;
 }
 
@@ -33,7 +34,7 @@ void MainWindow::on_actionSave_triggered() {
         QMessageBox::information(this, tr("File Saved"), tr("File saved successfully!"));
     }
     //set title
-    this->setWindowTitle(getTitle(_filename) + " - qNotepad");
+    this->setWindowTitle(getTitle(_filename));
 }
 
 void MainWindow:: on_actionSave_as_triggered() {
@@ -53,8 +54,18 @@ void MainWindow:: on_actionSave_as_triggered() {
     _filename = filename;
     _saved = true;
     //set title
-    this->setWindowTitle(getTitle(_filename) + " - qNotepad");
+    this->setWindowTitle(getTitle(_filename));
 }
 
+void MainWindow::on_actionFont_triggered() {
+    bool ok;
+    auto font = QFontDialog::getFont(&ok, this->ui->textEdit);
+    if (ok) {
+        this->ui->textEdit->setFont(font);
+    }
+    else {
+        return;
+    }
+}
 
 

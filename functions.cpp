@@ -8,5 +8,6 @@ QString getTitle(QString filename) {
             break;
         }
     }
-    return title;
+    if(title.isEmpty()) return "Untitled - qNotepad";
+    return title + " - qNotepad";
 }
