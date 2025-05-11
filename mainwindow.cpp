@@ -5,6 +5,7 @@
 #include <QFont>
 #include <QMessageBox>
 #include "includeFunctions.h"
+int main(int argc, char *argv[]);
 //#include <string>
 
 MainWindow::MainWindow(QWidget *parent)
@@ -66,6 +67,26 @@ void MainWindow::on_actionFont_triggered() {
     else {
         return;
     }
+}
+
+void MainWindow::on_actionNew_triggered() {
+    MainWindow *newWindow = new MainWindow();
+    newWindow->setAttribute( Qt::WA_DeleteOnClose);
+    newWindow->show();
+}
+
+void MainWindow::on_actionOpen_triggered(){
+
+}
+void MainWindow::on_actionCreate_triggered(){
+
+}
+void MainWindow::on_actionPage_Settings_triggered(){
+
+}
+
+void MainWindow::on_actionPrint_triggered(){
+
 }
 
 

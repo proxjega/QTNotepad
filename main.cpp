@@ -6,11 +6,10 @@ int main(int argc, char *argv[])
 {
 
     QApplication a(argc, argv);
-    MainWindow w;
-    // QTextEdit *textEdit = new QTextEdit();
-    // textEdit->setGeometry(10, 10, 400, 300);
-    // textEdit->setFont(QFont("Arial", 12));
-    // textEdit->show();
-    w.show();
+    MainWindow *w = new MainWindow();
+    w->setAttribute(Qt::WA_DeleteOnClose);
+    w->show();
+
     return a.exec();
 }
+

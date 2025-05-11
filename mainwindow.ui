@@ -14,19 +14,6 @@
    <string>Untitled - qNotepad</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="pushButton">
-    <property name="geometry">
-     <rect>
-      <x>260</x>
-      <y>520</y>
-      <width>80</width>
-      <height>24</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Save</string>
-    </property>
-   </widget>
    <widget class="QTextEdit" name="textEdit">
     <property name="geometry">
      <rect>
