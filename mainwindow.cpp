@@ -7,6 +7,8 @@
 #include "includeFunctions.h"
 #include <QCloseEvent>
 #include <QObject>
+#include <QtPrintSupport/QPrinter>
+#include <QtPrintSupport/QPrintDialog>
 //#include <string>
 
 MainWindow::MainWindow(QWidget *parent)
@@ -85,11 +87,11 @@ void MainWindow::on_actionOpen_triggered(){
             return;
         }
         else {
+            this->ui->textEdit->setPlainText(content);
             _filename = filename;
             _existing = true;
             _saved = true;
             this->setWindowTitle(getTitle(_filename));
-            this->ui->textEdit->setPlainText(content);
         }
     };
     QFileDialog::getOpenFileContent(tr("Text Files (*.txt);;All Files (*)"), file);
@@ -106,12 +108,22 @@ void MainWindow::on_actionPage_Settings_triggered(){
 }
 
 void MainWindow::on_actionPrint_triggered(){
-
+    QPrinter printer;
+    QPrintDialog dialog(&printer, this);
+    dialog.setWindowTitle(tr("Print Document"));
+    if (dialog.exec() == QDialog::Accepted) {
+        this->ui->textEdit->print(&printer);
+    }
 }
 
 void MainWindow::on_textEdit_textChanged() {
     _saved = false;
     this->setWindowTitle("*" + getTitle(_filename));
+}
+
+void MainWindow:: on_actionWord_Wrap_triggered(bool checked){
+    if(checked == true) this->ui->textEdit->setLineWrapMode(QTextEdit::WidgetWidth);
+    else this->ui->textEdit->setLineWrapMode(QTextEdit::NoWrap);
 }
 
 void MainWindow::closeEvent(QCloseEvent *event) {

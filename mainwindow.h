@@ -28,6 +28,7 @@ private slots:
     void on_actionFont_triggered();
     void on_actionPrint_triggered();
     void on_textEdit_textChanged();
+    void on_actionWord_Wrap_triggered(bool checked);
     void closeEvent(QCloseEvent *event) override;
 
 private:
