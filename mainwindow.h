@@ -24,7 +24,7 @@ private slots:
     void on_actionNew_triggered();
     void on_actionOpen_triggered();
     void on_actionCreate_triggered();
-    void on_actionPage_Settings_triggered();
+    void on_actionPage_settings_triggered();
     void on_actionFont_triggered();
     void on_actionPrint_triggered();
     void on_textEdit_textChanged();

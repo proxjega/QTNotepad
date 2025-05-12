@@ -9,6 +9,7 @@
 #include <QObject>
 #include <QtPrintSupport/QPrinter>
 #include <QtPrintSupport/QPrintDialog>
+#include <QPageSetupDialog>
 //#include <string>
 
 MainWindow::MainWindow(QWidget *parent)
@@ -103,8 +104,14 @@ void MainWindow::on_actionCreate_triggered(){
     _saved = false;
     _existing = false;
 }
-void MainWindow::on_actionPage_Settings_triggered(){
-
+void MainWindow::on_actionPage_settings_triggered(){
+    QPageSetupDialog *pageSetupDialog = new QPageSetupDialog(this);
+    pageSetupDialog->setWindowTitle(tr("Page Setup"));
+    pageSetupDialog->setAttribute(Qt::WA_DeleteOnClose);
+    pageSetupDialog->show();
+    connect(pageSetupDialog, &QPageSetupDialog::accepted, this, [=]() {
+        QMessageBox::information(this, tr("Page Setup"), tr("Page setup completed!"));
+    });
 }
 
 void MainWindow::on_actionPrint_triggered(){
