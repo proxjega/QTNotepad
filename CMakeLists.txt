@@ -75,4 +75,3 @@ install(TARGETS notepad
 if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(notepad)
 endif()
-add_subdirectory(qttest)
