@@ -387,7 +387,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
   </action>
   <action name="actionChoose_everything">
    <property name="text">
-    <string>Choose everything</string>
+    <string>Select all</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+A</string>
