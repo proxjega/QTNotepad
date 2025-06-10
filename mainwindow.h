@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QtPrintSupport/QPrinter>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -36,5 +37,6 @@ private:
     QString _filename;
     bool _saved;
     bool _existing;
+    QPrinter _printer;
 };
 #endif // MAINWINDOW_H

@@ -105,7 +105,7 @@ void MainWindow::on_actionCreate_triggered(){
     _existing = false;
 }
 void MainWindow::on_actionPage_settings_triggered(){
-    QPageSetupDialog *pageSetupDialog = new QPageSetupDialog(this);
+    QPageSetupDialog *pageSetupDialog = new QPageSetupDialog( &_printer, this);
     pageSetupDialog->setWindowTitle(tr("Page Setup"));
     pageSetupDialog->setAttribute(Qt::WA_DeleteOnClose);
     pageSetupDialog->show();
@@ -114,12 +114,11 @@ void MainWindow::on_actionPage_settings_triggered(){
     });
 }
 
-void MainWindow::on_actionPrint_triggered(){
-    QPrinter printer;
-    QPrintDialog dialog(&printer, this);
+void MainWindow::on_actionPrint_triggered() {
+    QPrintDialog dialog(&_printer, this);
     dialog.setWindowTitle(tr("Print Document"));
     if (dialog.exec() == QDialog::Accepted) {
-        this->ui->textEdit->print(&printer);
+        this->ui->textEdit->print(&_printer);
     }
 }
 
